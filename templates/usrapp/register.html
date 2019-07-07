@@ -1,0 +1,180 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+<title>Home</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+{#    <script type="text/javascript" charset="utf-8" src="//g.alicdn.com/sd/ncpc/nc.js?t=2015052012"></script>#}
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- font files  -->
+<link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+<!-- /font files  -->
+<!-- css files -->
+<link href="{% static 'css/style.css' %}" rel='stylesheet' type='text/css' media="all" />
+<!-- /css files -->
+</head>
+<body>
+<h1>Register</h1>
+<div class="log">
+	<div class="content2">
+		<h2>Register</h2>
+        <form action="{% url 'userapp:registlogic' %}" method="post" id="form">
+            {% csrf_token %}
+			<input type="text" name="userid"  onblur="uname()" id="u_name">
+			<input type="tel" name="usrtel"  onblur="ph()" id="phone">
+			<input type="email" name="email"  onblur="em()" id="emm">
+			<input type="password" name="psw"   onblur="pas1()" id="pwdd"><span id="hehe"></span>
+            <div id="your-dom-id" class="nc-container " style="margin-left: 50px;margin-top: 20px" ></div> <!--No-Captcha渲染的位置，其中 class 中必须包含 nc-container-->
+            <script src="{% static 'scripts/jquery/jquery-1.7.1.js' %}"></script>
+{#            <script type="text/javascript">#}
+        {#var nc_token = ["FFFF0N00000000007F25", (new Date()).getTime(), Math.random()].join(':');#}
+        {#var NC_Opt =#}
+        {#{#}
+        {#    renderTo: "#your-dom-id",#}
+        {#    appkey: "FFFF0N00000000007F25",#}
+        {#    scene: "nc_login",#}
+        {#    token: nc_token,#}
+        {#    customWidth: 300,#}
+        {#    trans:{"key1":"code0"},#}
+        {#    elementID: ["usernameID"],#}
+        {#    is_Opt: 0,#}
+        {#    language: "cn",#}
+        {#    isEnabled: true,#}
+        {#    timeout: 3000,#}
+        {#    times:5,#}
+        {#    apimap: {#}
+        {#        // 'analyze': '//a.com/nocaptcha/analyze.jsonp',#}
+        {#        // 'get_captcha': '//b.com/get_captcha/ver3',#}
+        {#        // 'get_captcha': '//pin3.aliyun.com/get_captcha/ver3'#}
+        {#        // 'get_img': '//c.com/get_img',#}
+        {#        // 'checkcode': '//d.com/captcha/checkcode.jsonp',#}
+        {#        // 'umid_Url': '//e.com/security/umscript/3.2.1/um.js',#}
+        {#        // 'uab_Url': '//aeu.alicdn.com/js/uac/909.js',#}
+        {#        // 'umid_serUrl': 'https://g.com/service/um.json'#}
+        {#    },#}
+        {#    callback: function (data) {#}
+        {#        window.console && console.log(nc_token)#}
+        {#        window.console && console.log(data.csessionid)#}
+        {#        window.console && console.log(data.sig)#}
+        {#        $.ajax({#}
+        {#            type:'get',#}
+        {#            url:'{% url 'userapp:dong' %}',#}
+        {#            data:'t='+nc_token+'&sid='+data.csessionid+'&sig='+data.sig,#}
+        {#            success:function (msg) {#}
+        {#                console.log(msg)#}
+        {##}
+        {#            }#}
+        {#        })#}
+        {#    }#}
+        {#};#}
+        {#console.log(NC_Opt);#}
+        {#var nc = new noCaptcha(NC_Opt);#}
+        {#nc.upLang('cn', {#}
+        {#    _startTEXT: "请按住滑块，拖动到最右边",#}
+        {#    _yesTEXT: "验证通过",#}
+        {#    _error300: "哎呀，出错了，点击<a href=\"javascript:__nc.reset()\">刷新</a>再来一次",#}
+        {#    _errorNetwork: "网络不给力，请<a href=\"javascript:__nc.reset()\">点击刷新</a>",#}
+        {#{)#}
+        {#</script>#}
+			<input type="button" class="register" value="Register" onclick="regist()">
+
+        </form>
+	</div>
+	<div class="clear"></div>
+</div>
+<div class="footer">
+	<p>Copyright &copy;  <a href="http://www.baizhiedu.com/" target="_blank" title="百知教育">百知教育</a></p>
+</div>
+<script src="{% static 'scripts/jquery/jquery-1.7.1.js' %}"></script>
+<script>
+     function pas1() {
+        var hehe = document.getElementById('hehe');
+        var pwdd=$('#pwdd').val();
+        console.log(pwdd)
+        var flag = /[a-z]+/.test(pwdd);
+        var flag1=/[A-Z]+/.test(pwdd);
+        var flag2=/[0-9]+/.test(pwdd);
+        var flag3=pwdd.length >= 6;
+        var flag4=pwdd.length <= 20;
+        console.log(flag1)
+        if (!flag || !flag1 || !flag2 || !flag3 || !flag4) {
+            alert('密码不合法')
+        }else {
+            hehe.innerText=''
+            return '0'
+        }
+    }
+    function uname() {
+         var uname=document.getElementById('u_name')
+         var res1=/^[^\d]/.test(uname.value);
+         console.log(res1)
+         var res2=uname.value.length>=6;
+         console.log(res2)
+         var res3=uname.value.length<=16;
+         console.log(res3)
+         if(res1 && res2 && res3){
+             return'0'
+         }else {
+             alert('用户名不合法')
+         }
+    }
+    function ph() {
+        var flag1= /^1[3|5|7|8]{1}[0-9]{9}$/.test($('#phone').val());
+        {#var flag2= /^([a-z]|[A-Z]|[0-9]){1,}[@]{1}([a-z]|[A-Z]|[0-9]){1,}[\.]{1}([a-z]|[A-Z]|[0-9]){1,}$/.test($('#txt_username').val());#}
+
+        if(flag1 ){
+            $.ajax({
+            type:'get',
+            url:'{% url 'userapp:ajax1' %}',
+            data:'phone='+$('#phone').val(),
+            success:function (msg) {
+                        if (msg == '1'){
+                            alert('手机号已注册')
+
+                        }
+            }
+
+        })
+        }else {
+           alert('手机号不合法')
+        }
+    }
+       function em() {
+        {#var flag1= /^1[3|5|7|8]{1}[0-9]{9}$/.test($('#emm').val());#}
+        var flag2= /^([a-z]|[A-Z]|[0-9]){1,}[@]{1}([a-z]|[A-Z]|[0-9]){1,}[\.]{1}([a-z]|[A-Z]|[0-9]){1,}$/.test($('#emm').val());
+
+        if(flag2 ){
+            $.ajax({
+            type:'get',
+            url:'{% url 'userapp:ajax2' %}',
+            data:'emm='+$('#emm').val(),
+            success:function (msg) {
+                        if (msg == '1'){
+                            alert('邮箱已注册')
+
+                        }
+            }
+
+        })
+        }else {
+           alert('邮箱不合法')
+        }
+    }
+    function regist() {
+         var uname=document.getElementById('u_name')
+         var phone=document.getElementById('phone')
+         var emm=document.getElementById('emm')
+         var pwdd=document.getElementById('pwdd')
+         var  form=document.getElementById('form')
+        if(uname.value && phone.value && emm.value && pwdd.value){
+             form.submit()
+        }else {
+             alert('表单不能为空')
+        }
+    }
+</script>
+</body>
+</html>
